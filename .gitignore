@@ -1,0 +1,13 @@
+# ignore IDE and Gradle specific files
+.idea
+.gradle
+
+
+settings.properties
+
+# ignore all log files
+*.log
+
+# ignore all build directories
+build
+out
