@@ -33,12 +33,8 @@ public class DataMonitor {
             }
             transactionChangedEvent();
         });
-        data.getGroups().addListener((ListChangeListener<TransactionGroup>) c -> {
-            groupChangedEvent();
-        });
-        data.getAccounts().addListener((ListChangeListener<MoneyAccountInterface>) c -> {
-            accountChangedEvent();
-        });
+        data.getGroups().addListener((ListChangeListener<TransactionGroup>) c -> groupChangedEvent());
+        data.getAccounts().addListener((ListChangeListener<MoneyAccountInterface>) c -> accountChangedEvent());
     }
 
     public void dataChangedEvent(){

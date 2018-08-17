@@ -1,6 +1,5 @@
 package com.morchul.financeapp.utilclasses;
 
-import com.morchul.financeapp.moneyaccount.MoneyAccount;
 import com.morchul.financeapp.moneyaccount.MoneyAccountInterface;
 import com.morchul.financeapp.transaction.group.TransactionGroup;
 

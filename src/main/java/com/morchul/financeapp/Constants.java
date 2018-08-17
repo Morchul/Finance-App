@@ -9,5 +9,4 @@ public class Constants {
 
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-LLL-yyyy");
 
-//    public static final Locale defaultLocale = Locale.US;
 }

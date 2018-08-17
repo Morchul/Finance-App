@@ -19,7 +19,7 @@ public class DataUtils {
 
     private boolean contains(List<MoneyAccountFilter> a, MoneyAccountInterface m){
         for(MoneyAccountFilter maf : a){
-            if(maf.getMoneyAccountFilter().equals(m.getName())) return true;
+            if(maf.getMoneyAccountFilter().getName().equals(m.getName())) return true;
         }
         return false;
     }
@@ -106,68 +106,4 @@ public class DataUtils {
         }
         return sum;
     }
-
-//    public float getTotalMinusOrPlus(LocalDate from, LocalDate to, boolean approved, TransactionFilter filter, boolean plus){
-//        float sum = 0;
-//        for(Transaction t : (filter == null) ? data.getTransactions() : filter.filterAndGetList(data.getTransactions())) {
-//            if(t.getDate().isAfter(from) && !t.getDate().isAfter(to)){
-//                if(approved) {
-//                    if(t.isApproved()) {
-//                        if (plus) {
-//                            if(t.getTo() instanceof MoneyAccount)
-//                                sum += t.getAmount();
-//                        } else {
-//                            if(t.getFrom() instanceof MoneyAccount)
-//                                sum += t.getAmount();
-//                        }
-//                    }
-//                } else {
-//                    if (plus) {
-//                        if(t.getTo() instanceof MoneyAccount)
-//                            sum += t.getAmount();
-//                    } else {
-//                        if(t.getFrom() instanceof MoneyAccount)
-//                            sum += t.getAmount();
-//                    }
-//                }
-//            }
-//        }
-//        return sum;
-//    }
-
-//    public float getTotalMoneyBetweenDate(LocalDate from, LocalDate to, boolean approved, TransactionFilter filter){
-//        float sum = 0;
-//        for (Transaction t : (filter == null) ? data.getTransactions() : filter.filterAndGetList(data.getTransactions())) {
-//            if (t.getDate().isAfter(from) && !t.getDate().isAfter(to)) {
-//                if(approved) {
-//                    if (t.isApproved()) {
-//                        sum = calc(t, sum);
-//                    }
-//                } else {
-//                    sum = calc(t, sum);
-//                }
-//            }
-//        }
-//        return sum;
-//    }
-
-//    private float calc(Transaction t, float sum){
-//        if (t.getTo() instanceof MoneyAccount)
-//            sum += t.getAmount();
-//        else if(t.getFrom() instanceof MoneyAccount)
-//            sum -= t.getAmount();
-//        return sum;
-//    }
-//
-//    public float getTotalMoneyBetweenDate(LocalDate from, LocalDate to, boolean approved){
-//        return getTotalMoneyBetweenDate(from, to, approved, null);
-//    }
-//
-//    public float getTotalMoneyAtDate(LocalDate date, boolean approved){
-//        return getTotalMoneyBetweenDate(LocalDate.MIN, date, approved, null);
-//    }
-//
-//    public float getTotalMoneyAtDate(LocalDate date, boolean approved, TransactionFilter filter){
-//        return getTotalMoneyBetweenDate(LocalDate.MIN, date, approved, filter);
-//    }
 }

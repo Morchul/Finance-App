@@ -3,7 +3,6 @@ package com.morchul.financeapp.ui;
 import com.morchul.financeapp.settings.Language;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.morchul.financeapp.Constants.dateFormatter;
 

@@ -21,15 +21,15 @@ public class MessageBoardUIActionHandler {
 
     /**
      *
-     * @param message
+     * @param message the FinanceAppMessage which will perform
      * @return true if the message was clear false if the user canceled
-     * @throws Exception
+     * @throws Exception if any error occurs
      */
     public boolean act(FinanceAppMessage message) throws Exception {
         switch (message.getType()){
             case TRANSACTION_APPROVE: return transactionApprove(message);
             case MONEY_ACCOUNT_GOES_BANKRUPT: return moneyAccountGoesBankrupt(message);
-            case SPEND_TO_MUCH_MONEY: return spendToMuchMoney(message);
+            case SPEND_TO_MUCH_MONEY: return spendToMuchMoney();
             case GROUP_MONEY_SUPERVISER_REMEMBER: return groupMoneySupervisorRemember();
             default: return false;
         }
@@ -50,13 +50,13 @@ public class MessageBoardUIActionHandler {
         }
     }
 
-    private boolean spendToMuchMoney(FinanceAppMessage message) throws Exception {
+    private boolean spendToMuchMoney() throws Exception {
         app.getWindow().selectTab(Window.TabType.TRANSACTION_GROUP);
         return false;
     }
 
     private boolean moneyAccountGoesBankrupt(FinanceAppMessage message) throws Exception{
-         if(!message.hasTransactions() || message.getTransactions() == null)
+         if(!message.hasTransactions() || message.getTransactions() == null || message.getTransactions().size() == 0)
             throw new Exception("FinanceAppMessage TRANSACTION_APPROVE must have Transactions!");
 
         Dialog info = new Dialog();
@@ -75,23 +75,21 @@ public class MessageBoardUIActionHandler {
             l.setText(t.getDescription() + " / " + -t.getAmount() + " / " + t.getDate());
             Button b = new Button("remove");
             b.setOnAction(event -> {
-                if(t != null){
-                    if(t.hasNext() || t.hasPrevious()){
-                        int answer = UIHelper.showTransactionDeleteDialog();
-                        if(answer >= 0) {
-                            app.getData().removeTransaction(t, answer == 1 || answer == 3, answer == 2 || answer == 3);
-                            app.getLogger().info("Delete transaction/s");
-                            gridPane.getChildren().removeAll(l,b);
-                        }
-                    } else {
-                        if(UIHelper.showConfirmDialog("Do you want to delete this transaction: " + t.getDescription())){
-                            app.getData().removeTransaction(t, false, false);
-                            app.getLogger().info("Delete single transaction");
-                            gridPane.getChildren().removeAll(l,b);
-                        }
+                if(t.hasNext() || t.hasPrevious()){
+                    int answer = UIHelper.showTransactionDeleteDialog();
+                    if(answer >= 0) {
+                        app.getData().removeTransaction(t, answer == 1 || answer == 3, answer == 2 || answer == 3);
+                        app.getLogger().info("Delete transaction/s");
+                        gridPane.getChildren().removeAll(l,b);
                     }
-                    app.getWindow().update();
+                } else {
+                    if(UIHelper.showConfirmDialog("Do you want to delete this transaction: " + t.getDescription())){
+                        app.getData().removeTransaction(t, false, false);
+                        app.getLogger().info("Delete single transaction");
+                        gridPane.getChildren().removeAll(l,b);
+                    }
                 }
+                app.getWindow().update();
             });
             gridPane.add(l, 0, i);
             gridPane.add(b, 1, i);

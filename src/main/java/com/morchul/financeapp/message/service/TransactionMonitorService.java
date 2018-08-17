@@ -11,12 +11,10 @@ import java.time.LocalDate;
 public class TransactionMonitorService implements TransactionMonitor {
 
     private Transaction transaction;
-    private MessageBoard board;
     private FinanceAppMessage approveMessage;
 
     public TransactionMonitorService(Transaction t, MessageBoard board) {
         this.transaction = t;
-        this.board = board;
         approveMessage = createApproveMessage();
 
         if(!transaction.isApproved() && !transaction.getDate().isAfter(LocalDate.now())){

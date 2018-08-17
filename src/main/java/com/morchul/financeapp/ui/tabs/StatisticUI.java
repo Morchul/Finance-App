@@ -1,12 +1,11 @@
 package com.morchul.financeapp.ui.tabs;
 
-import com.morchul.financeapp.Constants;
 import com.morchul.financeapp.FinanceAppApplication;
 import com.morchul.financeapp.filter.TransactionFilter;
 import com.morchul.financeapp.moneyaccount.MoneyAccountInterface;
 import com.morchul.financeapp.transaction.group.TransactionGroup;
-import com.morchul.financeapp.ui.statistic.StatisticView;
 import com.morchul.financeapp.ui.UIHelper;
+import com.morchul.financeapp.ui.statistic.StatisticView;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -25,7 +24,6 @@ public class StatisticUI implements FinanceAppTab {
 
     private ComboBox<TransactionGroup> group;
     private ComboBox<MoneyAccountInterface> account;
-    private Button back;
 
     private Spinner<Integer> yearValue;
     private Spinner<Integer> monthValue;
@@ -50,21 +48,18 @@ public class StatisticUI implements FinanceAppTab {
     private final StatisticView.DataRow minus;
     private final StatisticView.DataRow total;
 
-    private SpinnerValueFactory<Integer> monthValueFactory;
-    private SpinnerValueFactory<Integer> yearValueFactory;
-
     public StatisticUI(FinanceAppApplication app) {
         this.app = app;
         borderPane = new BorderPane();
 
-        monthValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue());
+        SpinnerValueFactory<Integer> monthValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, LocalDate.now().getMonthValue());
         monthValue = new Spinner<>();
         monthValue.setValueFactory(monthValueFactory);
         monthValue.valueProperty().addListener((observable, oldValue, newValue) -> update());
         monthValue.setDisable(true);
         Label monthLabel = new Label(app.getLanguage().getString("Month") + ":");
 
-        yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2000, 2100, LocalDate.now().getYear());
+        SpinnerValueFactory<Integer> yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2000, 2100, LocalDate.now().getYear());
         yearValue = new Spinner<>();
         yearValue.setValueFactory(yearValueFactory);
         yearValue.valueProperty().addListener((observable, oldValue, newValue) -> update());
@@ -91,7 +86,7 @@ public class StatisticUI implements FinanceAppTab {
         });
 
 
-        s = new StatisticView(app);
+        s = new StatisticView();
         january = s.createColumn(app.getLanguage().getString("JanuaryShort"));
         february = s.createColumn(app.getLanguage().getString("FebruaryShort"));
         march = s.createColumn(app.getLanguage().getString("MarchShort"));
@@ -114,7 +109,7 @@ public class StatisticUI implements FinanceAppTab {
         group.valueProperty().addListener((observable, oldValue, newValue) -> update());
         account = UIHelper.getMoneyAccountComboBox(app.getData().getAccounts());
         account.valueProperty().addListener((observable, oldValue, newValue) -> update());
-        back = new Button(app.getLanguage().getString("Reset"));
+        Button back = new Button(app.getLanguage().getString("Reset"));
         back.setOnAction(event -> {
             group.getSelectionModel().select(-1);
             account.getSelectionModel().select(-1);

@@ -5,8 +5,8 @@ import java.util.List;
 public class TransactionBinder {
 
     public static void bind(List<Transaction> transactionChain){
-        Transaction actual = null;
-        Transaction next = null;
+        Transaction actual;
+        Transaction next;
         Transaction previous = null;
 
         actual = transactionChain.get(0);

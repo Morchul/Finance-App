@@ -24,7 +24,7 @@ import java.time.temporal.WeekFields;
 
 public class TransactionGroupUI implements FinanceAppTab {
 
-    private final String name = "Transaction Group";
+    private static final String name = "Transaction Group";
     private FinanceAppApplication app;
     private TableView<TransactionGroup> groupTable;
     private BorderPane borderPane;

@@ -24,14 +24,12 @@ public class TransactionGroupMoneySupervisorService {
         check();
     }
 
-    private void check(){
+    private void check() {
         String interval = app.getSettings().getGroupMoneySupervisorInterval();
         String lastRemember = app.getSettings().getGroupMoneySupervisorLastRemember();
 
-        if(getNextRememberDate(interval, getLastRemember(lastRemember)).isAfter(LocalDate.now())) {
-            return ;
-        } else {
-            if(supervisor.getMoney() != 0) {
+        if (!getNextRememberDate(interval, getLastRemember(lastRemember)).isAfter(LocalDate.now())) {
+            if (supervisor.getMoney() != 0) {
                 createMessage();
                 board.pinMessage(rememberMessage);
             }

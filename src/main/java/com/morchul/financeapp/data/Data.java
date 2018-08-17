@@ -1,7 +1,6 @@
 package com.morchul.financeapp.data;
 
 import com.morchul.financeapp.filter.TransactionFilter;
-import com.morchul.financeapp.moneyaccount.MoneyAccount;
 import com.morchul.financeapp.moneyaccount.MoneyAccountInterface;
 import com.morchul.financeapp.transaction.Transaction;
 import com.morchul.financeapp.transaction.group.TransactionGroup;

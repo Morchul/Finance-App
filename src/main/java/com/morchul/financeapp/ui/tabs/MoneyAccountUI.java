@@ -8,14 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
 public class MoneyAccountUI implements FinanceAppTab {
 
-    private final String name = "Money Accounts";
+    private static final String name = "Money Accounts";
     private TableView<MoneyAccountInterface> moneyAccountTable;
     private TableView<MoneyAccountInterface> externalMoneyAccountTable;
     private BorderPane borderPane;

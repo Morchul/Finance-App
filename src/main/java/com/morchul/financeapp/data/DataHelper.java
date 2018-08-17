@@ -38,7 +38,7 @@ public class DataHelper {
     }
 
     private void fillDataFilter(Data data, List<TransactionFilter> filters, List<TransactionGroup> groups, List<MoneyAccountInterface> accounts) throws Exception {
-        boolean group = false, account = false;
+        boolean group, account;
         for(TransactionFilter f : filters){
             for(GroupTransactionFilter gtf : f.getFilter(GroupTransactionFilter.class)){
                 group = false;

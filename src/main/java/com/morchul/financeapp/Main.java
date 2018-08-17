@@ -8,4 +8,6 @@ public class Main {
         LauncherImpl.launchApplication(com.morchul.financeapp.FinanceAppApplication.class, com.morchul.financeapp.FinanceAppPreLoader.class, args);
     }
 
+
+    //TODO edit description from Transaction
 }

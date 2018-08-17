@@ -19,7 +19,6 @@ import java.time.LocalDate;
 
 public class MainTransactionUI implements FinanceAppTab {
 
-    private Button plusButton;
     private TextField amountField;
     private DatePicker datePicker;
     private ComboBox<TransactionGroup> groups;
@@ -62,23 +61,13 @@ public class MainTransactionUI implements FinanceAppTab {
         repetitionCount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2,365,2));
         repetitionCount.setEditable(true);
         repetitionCount.setDisable(true);
-        plusButton = new Button("+");
+        Button plusButton = new Button("+");
         plusButton.setOnAction(event -> {
             String message;
             if(!(message = UIHelper.validInput(groups.getValue(), groups.isDisabled(), amountField.getText(), datePicker.getValue(), from.getValue(), to.getValue(), null)).equals("")) {
                 app.getWindow().setStatus(message);
                 return;
             }
-//            MoneyAccountInterface maFrom = (from.getValue() == null) ? new ImaginaryMoneyAccount(): from.getValue();
-//            if(!datePicker.getValue().isAfter(LocalDate.now()) && maFrom.getMoney() - Float.parseFloat(amountField.getText()) < 0){
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Error");
-//                alert.setHeaderText("Not enough money!");
-//                alert.setContentText(null);
-//                alert.showAndWait();
-//                app.getWindow().setStatus("Not enough money");
-//                return;
-//            }
             float amount = Float.parseFloat(amountField.getText());
             app.getData().addAllTransaction(
                     app.getFactory().transactionFactory.createTransaction(
@@ -96,8 +85,6 @@ public class MainTransactionUI implements FinanceAppTab {
                     && !datePicker.getValue().isAfter(LocalDate.now())){
                 app.getGroupMoneySupervisor().addMoney(amount);
             }
-//            if(from.getValue().getType == IMAGINARY)
-//                from.setValue(null);
             app.getWindow().update();
         });
 
@@ -129,19 +116,6 @@ public class MainTransactionUI implements FinanceAppTab {
 
         return gridPane;
     }
-
-    /**
-     * @return if input valid "" else error message
-     */
-//    private String inputValid(){
-//        String message = "";
-//        if(groups.getValue() == null && !groups.isDisabled()) message += "Invalid Group / ";
-//        if(amountField.getText().isEmpty()) message += "Invalid Amount / ";
-//        if(datePicker.getValue() == null) message += "Invalid Date / ";
-////        if(from.getValue() == null) from.setValue(new ImaginaryMoneyAccount());
-//        if(from.getValue() == to.getValue()) message += "From and To can't be the same / ";
-//        return message;
-//    }
 
     private ListView<FinanceAppMessage> getRightSide() {
         messageBoardListView = new ListView<>();

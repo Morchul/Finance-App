@@ -117,9 +117,7 @@ public class MainUI implements Window {
     private MenuBar createMenuBar(){
 
         MenuItem settings = new MenuItem("Settings");
-        settings.setOnAction(event -> {
-            app.getSettings().showView();
-        });
+        settings.setOnAction(event -> app.getSettings().showView());
         Menu date = new Menu(Constants.dateFormatter.format(LocalDate.now()));
 
         Menu file = new Menu("File");

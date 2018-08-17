@@ -14,7 +14,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -127,33 +126,33 @@ public class UIHelper {
         return result.get() == ButtonType.OK;
     }
 
-    public static ComboBox<TransactionFilter> getTransactionFilterComboBox(ObservableList<TransactionFilter> filter){
-        ComboBox<TransactionFilter> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(filter);
-        Callback<ListView<TransactionFilter>, ListCell<TransactionFilter>> i = new Callback<ListView<TransactionFilter>, ListCell<TransactionFilter>>() {
-            @Override
-            public ListCell<TransactionFilter> call(ListView<TransactionFilter> param) {
-                return new ListCell<TransactionFilter>() {
-                    @Override
-                    public void updateItem(TransactionFilter item, boolean empty){
-                        super.updateItem(item, empty);
-                        if(item != null && !empty)
-                            setText(item.getName());
-                        else
-                            setText(null);
-                    }
-                };
-            }
-        };
-        filter.addListener((ListChangeListener<TransactionFilter>) c  -> {
-            comboBox.getItems().clear();
-            comboBox.getItems().addAll(filter);
-            comboBox.valueProperty().set(null);
-        });
-        comboBox.setCellFactory(i);
-        comboBox.setButtonCell(i.call(null));
-        return comboBox;
-    }
+//    public static ComboBox<TransactionFilter> getTransactionFilterComboBox(ObservableList<TransactionFilter> filter){
+//        ComboBox<TransactionFilter> comboBox = new ComboBox<>();
+//        comboBox.getItems().addAll(filter);
+//        Callback<ListView<TransactionFilter>, ListCell<TransactionFilter>> i = new Callback<ListView<TransactionFilter>, ListCell<TransactionFilter>>() {
+//            @Override
+//            public ListCell<TransactionFilter> call(ListView<TransactionFilter> param) {
+//                return new ListCell<TransactionFilter>() {
+//                    @Override
+//                    public void updateItem(TransactionFilter item, boolean empty){
+//                        super.updateItem(item, empty);
+//                        if(item != null && !empty)
+//                            setText(item.getName());
+//                        else
+//                            setText(null);
+//                    }
+//                };
+//            }
+//        };
+//        filter.addListener((ListChangeListener<TransactionFilter>) c  -> {
+//            comboBox.getItems().clear();
+//            comboBox.getItems().addAll(filter);
+//            comboBox.valueProperty().set(null);
+//        });
+//        comboBox.setCellFactory(i);
+//        comboBox.setButtonCell(i.call(null));
+//        return comboBox;
+//    }
 
     public static <T> Button comboBoxClearer(ComboBox<T> comboBox){
         Button b = new Button("x");
@@ -197,7 +196,7 @@ public class UIHelper {
     public static TextField getAmountField(){
         TextField amount = new TextField();
         amount.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?"))
+            if(!newValue.matches("\\d{0,7}([.]\\d{0,2})?"))
                 amount.setText(oldValue);
         });
         return amount;

@@ -1,6 +1,5 @@
 package com.morchul.financeapp.ui.statistic;
 
-import com.morchul.financeapp.FinanceAppApplication;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +16,7 @@ public class StatisticView {
 
     private StatisticDrawer drawer;
 
-    public StatisticView(FinanceAppApplication app) {
+    public StatisticView() {
         columns = new ArrayList<>();
         dataRows = new ArrayList<>();
         pane = new Pane();
@@ -38,7 +37,7 @@ public class StatisticView {
 
         float highest = 0;
         float lowest = 0;
-        float different = 0;
+        float different;
         float stepCount;
         for(StatisticColumn c : columns){
             for(Data d: c.values){

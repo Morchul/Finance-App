@@ -2,13 +2,11 @@ package com.morchul.financeapp.ui.tabs;
 
 import com.morchul.financeapp.FinanceAppApplication;
 import com.morchul.financeapp.filter.TransactionFilter;
-import com.morchul.financeapp.moneyaccount.MoneyAccountInterface;
-import com.morchul.financeapp.utilclasses.FilteredTransaction;
 import com.morchul.financeapp.transaction.Transaction;
 import com.morchul.financeapp.ui.FilterFactory;
 import com.morchul.financeapp.ui.UIHelper;
+import com.morchul.financeapp.utilclasses.FilteredTransaction;
 import com.morchul.financeapp.utilclasses.TransactionEdit;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -143,22 +141,6 @@ public class FilterViewUI implements FinanceAppTab {
                     }
                     app.getData().monitor.dataChangedEvent();
                     app.getGroupMoneySupervisor().calc();
-//                    if(te.getOldTo() != te.getTo()) {
-//                        if (te.getOldTo() != null && te.getOldTo().getType() == MoneyAccountInterface.MoneyAccountType.DEFAULT) {
-//                            app.getGroupMoneySupervisor().addMoney(-te.getOldAmount());
-//                        }
-//                        if (te.getTo() != null && te.getTo().getType() == MoneyAccountInterface.MoneyAccountType.DEFAULT) {
-//                            app.getGroupMoneySupervisor().addMoney(te.getAmount());
-//                        }
-//                    }
-//                    if(te.getOldFrom() != te.getFrom()) {
-//                        if (te.getOldFrom() != null && te.getOldFrom().getType() == MoneyAccountInterface.MoneyAccountType.DEFAULT) {
-//                            app.getGroupMoneySupervisor().addMoney(te.getOldAmount());
-//                        }
-//                        if (te.getFrom() != null && te.getFrom().getType() == MoneyAccountInterface.MoneyAccountType.DEFAULT) {
-//                            app.getGroupMoneySupervisor().addMoney(-te.getAmount());
-//                        }
-//                    }
 
                 } else {
                     app.getWindow().setStatus(app.getLanguage().getString("ErrorByEdit") + " " + message);
