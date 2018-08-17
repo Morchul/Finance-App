@@ -47,6 +47,8 @@ public class UIHelper {
         datePicker.setValue(t.getDate());
         final TextField amount = getAmountField();
         amount.setText(t.getAmount()+"");
+        final TextField description = new TextField();
+        description.setText(t.getDescription());
 
         gridPane.add(new Label("From"),0,0);
         gridPane.add(from, 1, 0);
@@ -60,6 +62,8 @@ public class UIHelper {
         gridPane.add(amount, 1,3, 2, 1);
         gridPane.add(new Label("Date"),0,4);
         gridPane.add(datePicker,1,4, 2, 1);
+        gridPane.add(new Label("Description"),0,5);
+        gridPane.add(description, 1, 5);
 
         dialog.getDialogPane().setContent(gridPane);
 
@@ -75,7 +79,8 @@ public class UIHelper {
                         Float.parseFloat(amount.getText()),
                         t.getAmount(),
                         datePicker.getValue(),
-                        group.isDisabled()
+                        group.isDisabled(),
+                        description.getText()
                 );
             } else
                 return null;

@@ -215,6 +215,7 @@ public class Transaction {
         setTo(te.getTo(), toNext, toPrevious, true);
         setAmount(te.getAmount());
         setDate(te.getDate());
+        setDescription(te.getDescription(), toNext, toPrevious);
     }
 
     public void previousDelete(Transaction newPrevious){ previous = newPrevious; }

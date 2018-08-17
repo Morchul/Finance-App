@@ -16,8 +16,9 @@ public class TransactionEdit {
     private final float oldAmount;
     private final LocalDate date;
     private boolean groupDisabled;
+    private String description;
 
-    public TransactionEdit(TransactionGroup group, MoneyAccountInterface from, MoneyAccountInterface oldFrom, MoneyAccountInterface to, MoneyAccountInterface oldTo, float amount, float oldAmount, LocalDate date, boolean groupDisabled){
+    public TransactionEdit(TransactionGroup group, MoneyAccountInterface from, MoneyAccountInterface oldFrom, MoneyAccountInterface to, MoneyAccountInterface oldTo, float amount, float oldAmount, LocalDate date, boolean groupDisabled, String description){
         this.group = group;
         this.from = from;
         this.oldFrom = oldFrom;
@@ -27,6 +28,7 @@ public class TransactionEdit {
         this.oldAmount = oldAmount;
         this.date = date;
         this.groupDisabled = groupDisabled;
+        this.description = description;
     }
 
     public TransactionGroup getGroup() {
@@ -63,5 +65,9 @@ public class TransactionEdit {
 
     public boolean isGroupDisabled() {
         return groupDisabled;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
