@@ -1,7 +1,6 @@
 package com.morchul.financeapp.ui;
 
 import com.morchul.financeapp.factory.TransactionFactory;
-import com.morchul.financeapp.filter.TransactionFilter;
 import com.morchul.financeapp.moneyaccount.ImaginaryMoneyAccount;
 import com.morchul.financeapp.moneyaccount.MoneyAccountInterface;
 import com.morchul.financeapp.transaction.Transaction;
@@ -108,6 +107,7 @@ public class UIHelper {
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
+        if(!result.isPresent()) return -1;
         if (result.get() == buttonTypeOne){
             return 0;
         } else if (result.get() == buttonTypeTwo) {
@@ -128,7 +128,7 @@ public class UIHelper {
         alert.setContentText(text);
 
         Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
 //    public static ComboBox<TransactionFilter> getTransactionFilterComboBox(ObservableList<TransactionFilter> filter){

@@ -42,7 +42,7 @@ public class MessageBoardUIActionHandler {
         alert.setContentText(null);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        if(result.isPresent() && result.get() == ButtonType.OK){
             app.getSettings().setGroupMoneySupervisorLastRemember(Constants.dateFormatter.format(LocalDate.now()));
             return true;
         } else {

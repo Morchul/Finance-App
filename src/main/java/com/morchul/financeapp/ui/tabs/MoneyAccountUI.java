@@ -40,10 +40,12 @@ public class MoneyAccountUI implements FinanceAppTab {
             alert.getButtonTypes().setAll(standard, external, cancel);
 
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == standard)
-                app.getData().addAccount(app.getFactory().moneyAccountFactory.createMoneyAccount("name"));
-            else if(result.get() == external)
-                app.getData().addExternalAccount(app.getFactory().moneyAccountFactory.createExternalMoneyAccount("external"));
+            if(result.isPresent()) {
+                if (result.get() == standard)
+                    app.getData().addAccount(app.getFactory().moneyAccountFactory.createMoneyAccount("name"));
+                else if (result.get() == external)
+                    app.getData().addExternalAccount(app.getFactory().moneyAccountFactory.createExternalMoneyAccount("external"));
+            }
         });
         Button removeAccountButton = new Button("removeAccount");
         removeAccountButton.setOnAction(event -> {

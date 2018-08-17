@@ -9,6 +9,8 @@ import com.morchul.financeapp.transaction.Transaction;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.morchul.financeapp.moneyaccount.MoneyAccountInterface.MoneyAccountType.DEFAULT;
+
 public class DataUtils {
 
     private Data data;
@@ -44,14 +46,14 @@ public class DataUtils {
                     MoneyAccountInterface toA = t.getTo();
                     if (mustBeApproved) {
                         if (t.isApproved()) {
-                            if(toA instanceof MoneyAccount && contains(a, toA)){
-                                if(fromA instanceof MoneyAccount && contains(a, fromA)){
+                            if(toA.getType() == DEFAULT && contains(a, toA)){
+                                if(fromA.getType() == DEFAULT && contains(a, fromA)){
                                     continue;
                                 } else {
                                     if(method == 0 || method == 1)
                                         sum += t.getAmount();
                                 }
-                            } else if(fromA instanceof MoneyAccount && contains(a, fromA)){
+                            } else if(fromA.getType() == DEFAULT && contains(a, fromA)){
                                 if(method == 0)
                                     sum -= t.getAmount();
                                 else if(method == 2)
@@ -59,14 +61,14 @@ public class DataUtils {
                             }
                         }
                     } else {
-                        if(toA instanceof MoneyAccount && contains(a, toA)){
-                            if(fromA instanceof MoneyAccount && contains(a, fromA)){
+                        if(toA.getType() == DEFAULT && contains(a, toA)){
+                            if(fromA.getType() == DEFAULT && contains(a, fromA)){
                                 continue;
                             } else {
                                 if(method == 0 || method == 1)
                                     sum += t.getAmount();
                             }
-                        } else if(fromA instanceof MoneyAccount && contains(a, fromA)){
+                        } else if(fromA.getType() == DEFAULT && contains(a, fromA)){
                             if(method == 0)
                                 sum -= t.getAmount();
                             else if(method == 2)
@@ -76,12 +78,12 @@ public class DataUtils {
                 } else {
                     if (mustBeApproved) {
                         if (t.isApproved()) {
-                            if (t.getTo() instanceof MoneyAccount && t.getFrom() instanceof MoneyAccount) continue;
-                            if (t.getTo() instanceof MoneyAccount){
+                            if (t.getTo().getType() == DEFAULT && t.getFrom().getType() == DEFAULT) continue;
+                            if (t.getTo().getType() == DEFAULT){
                                 if(method == 0 || method == 1)
                                     sum += t.getAmount();
                             }
-                            if (t.getFrom() instanceof MoneyAccount){
+                            if (t.getFrom().getType() == DEFAULT){
                                 if(method == 0)
                                     sum -= t.getAmount();
                                 else if(method == 2)
@@ -89,12 +91,12 @@ public class DataUtils {
                             }
                         }
                     } else {
-                        if (t.getTo() instanceof MoneyAccount && t.getFrom() instanceof MoneyAccount) continue;
-                        if (t.getTo() instanceof MoneyAccount){
+                        if (t.getTo().getType() == DEFAULT && t.getFrom().getType() == DEFAULT) continue;
+                        if (t.getTo().getType() == DEFAULT){
                             if(method == 0 || method == 1)
                                 sum += t.getAmount();
                         }
-                        if (t.getFrom() instanceof MoneyAccount){
+                        if (t.getFrom().getType() == DEFAULT){
                             if(method == 0)
                                 sum -= t.getAmount();
                             else if(method == 2)
