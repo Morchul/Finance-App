@@ -19,6 +19,16 @@ public class Settings implements AppSettings {
     }
 
     @Override
+    public String getStoreType() {
+        return properties.getProperty(STORE_TYPE, DEFAULT_STORE_TYPE);
+    }
+
+    @Override
+    public String getExternalMongoDBHost() {
+        return properties.getProperty(EXTERNAL_MONGODB_HOST, DEFAULT_EXTERNAL_MONGODB_HOST);
+    }
+
+    @Override
     public Locale getLanguageLocale() {
         return Locale.forLanguageTag(properties.getProperty(LANGUAGE_LOCALE, DEFAULT_LANGUAGE_LOCALE));
     }
@@ -70,6 +80,15 @@ public class Settings implements AppSettings {
                 lookDaysInFuture.setText(newValue.replaceAll("[^\\d]", ""));
         });
 
+        TextField storeHost = new TextField(getExternalMongoDBHost());
+
+        ComboBox<String> storeType = new ComboBox<>();
+        storeType.getItems().addAll("local","external");
+        storeType.valueProperty().addListener((observable, oldValue, newValue) -> {
+            storeHost.setDisable(storeType.getValue().equals("local"));
+        });
+        storeType.getSelectionModel().select(getStoreType());
+
         ComboBox<Locale> languageLocale = new ComboBox<>();
         languageLocale.getItems().addAll(Locale.GERMANY, Locale.US);
         languageLocale.setValue(getLanguageLocale());
@@ -97,13 +116,18 @@ public class Settings implements AppSettings {
         gridPane.add(languageLocale,1,1);
         gridPane.add(new Label("Group Money distribute Remember Interval"),0,2);
         gridPane.add(rememberInterval,1,2);
+        gridPane.add(new Label("Store Type"),0,3);
+        gridPane.add(storeType,1,3);
+        gridPane.add(new Label("MongoDB host"),0,4);
+        gridPane.add(storeHost,1,4);
 
         settingsDialog.getDialogPane().setContent(gridPane);
 
         settingsDialog.setResultConverter(dialogButton ->{
             if(dialogButton == save){
                 return new SettingsData(Integer.parseInt(lookDaysInFuture.getText()),
-                        languageLocale.getValue(), rememberInterval.getValue());
+                        languageLocale.getValue(), rememberInterval.getValue(),
+                        storeHost.getText(), storeType.getValue());
             } else return null;
         });
 
@@ -112,6 +136,8 @@ public class Settings implements AppSettings {
             properties.setProperty(LOOK_DAYS_IN_FUTURE,""+res.getLookDaysInFuture());
             properties.setProperty(LANGUAGE_LOCALE, res.getLanguageLocale().getLanguage()+"-"+res.getLanguageLocale().getCountry());
             properties.setProperty(GROUP_MONEY_SUPERVISOR_INTERVAL, res.getGroupMoneyRememberInterval());
+            properties.setProperty(EXTERNAL_MONGODB_HOST, res.getExternalMongoDBHost());
+            properties.setProperty(STORE_TYPE, res.getStoreType());
         });
     }
 
@@ -159,17 +185,29 @@ public class Settings implements AppSettings {
         private int lookDaysInFuture;
         private Locale languageLocale;
         private String groupMoneyRememberInterval;
+        private String externalMongoDBHost;
+        private String storeType;
 
-        public SettingsData(int lookDaysInFuture, Locale languageLocale, String groupMoneyRememberInterval){
+        public SettingsData(int lookDaysInFuture, Locale languageLocale, String groupMoneyRememberInterval, String externalMongoDBHost, String storeType){
             this.lookDaysInFuture = lookDaysInFuture;
             this.languageLocale = languageLocale;
             this.groupMoneyRememberInterval = groupMoneyRememberInterval;
+            this.externalMongoDBHost = externalMongoDBHost;
+            this.storeType = storeType;
+
         }
 
         public int getLookDaysInFuture() {
             return lookDaysInFuture;
         }
         public Locale getLanguageLocale(){return languageLocale;}
+
+        private String getExternalMongoDBHost(){
+            return externalMongoDBHost;
+        }
+        private String getStoreType(){
+            return storeType;
+        }
 
         public String getGroupMoneyRememberInterval() {
             return groupMoneyRememberInterval;

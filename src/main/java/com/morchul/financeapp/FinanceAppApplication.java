@@ -53,7 +53,7 @@ public class FinanceAppApplication extends Application {
         language.changeLanguage(settings.getLanguageLocale());
         notifyPreloader(new Preloader.ProgressNotification(0.2));
         logger.info("Create Store and Data ...");
-        this.store = StoreFactory.createStore(StoreFactory.StoreKind.LOCAL_MONGO);
+        this.store = StoreFactory.createStore(this);
         this.storeHelper = new StoreHelper(store, this);
         data = new Data();
         notifyPreloader(new Preloader.ProgressNotification(0.3));

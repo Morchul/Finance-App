@@ -47,7 +47,7 @@ public class MoneyAccountUI implements FinanceAppTab {
                     app.getData().addExternalAccount(app.getFactory().moneyAccountFactory.createExternalMoneyAccount("external"));
             }
         });
-        Button removeAccountButton = new Button("removeAccount");
+        Button removeAccountButton = new Button("Remove Account");
         removeAccountButton.setOnAction(event -> {
             MoneyAccountInterface account = moneyAccountTable.getSelectionModel().getSelectedItem();
             if(account != null && account.noPointers()){
@@ -59,7 +59,7 @@ public class MoneyAccountUI implements FinanceAppTab {
                 app.getWindow().setStatus("Can't delete account!");
             }
         });
-        Button removeExternalAccountButton = new Button("removeExternalAccount");
+        Button removeExternalAccountButton = new Button("Remove External Account");
         removeExternalAccountButton.setOnAction(event -> {
             MoneyAccountInterface account = externalMoneyAccountTable.getSelectionModel().getSelectedItem();
             if(account != null && account.noPointers()){
